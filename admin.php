@@ -1,5 +1,6 @@
 <?php
 session_start();
+header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
 
 // Validate admin login (you need to add your own admin authentication logic here)
 if (!isset($_SESSION['admin_loggedin']) || $_SESSION['admin_loggedin'] !== true) {
