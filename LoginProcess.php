@@ -26,6 +26,22 @@ $username = $conn->real_escape_string($username);
 $sql = "SELECT * FROM users WHERE username='$username'";
 $result = $conn->query($sql);
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $admin_username = "Admin123"; // change this to your admin username
+    $admin_password = "Admin123"; // change this to your admin password
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if ($username === $admin_username && $password === $admin_password) {
+        $_SESSION['admin_loggedin'] = true;
+        header("Location: admin.php");
+        exit;
+    } else {
+        $error = "Invalid username or password";
+    }
+}
+
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['password'])) {
@@ -71,3 +87,4 @@ if (isset($_SESSION['created']) && (time() - $_SESSION['created'] > $session_lif
 
 $_SESSION['last_activity'] = time(); // Update last activity time stamp
 ?>
+
