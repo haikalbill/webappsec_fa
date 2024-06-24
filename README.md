@@ -78,7 +78,14 @@ Database Check: Checks if the username already exists in the database to prevent
 
 
 ### <a name="autho"/> 3. Authorization
+Regenerating Session IDs on Authentication
+Explanation: This function regenerates the session ID upon successful login, which helps prevent session fixation attacks. By regenerating the session ID, you ensure that a new, unique session is created for each authenticated user session.
 
+Enforcing Idle Session Timeout
+Explanation: This code checks if the user has been inactive for a specified period (30 minutes). If the user is inactive for longer than this period, the session is destroyed, and the user is redirected to the login page. The $_SESSION['last_activity'] variable is updated with the current timestamp on each request to track the user's activity.
+
+Enforcing Absolute Session Timeout
+Explanation: This code enforces an absolute session timeout, where the session is terminated after a fixed duration (1 hour) regardless of user activity. The $_SESSION['created'] variable stores the session creation time, and if the session age exceeds the specified lifetime, the session is destroyed, and the user is redirected to the login page.
 
 ### <a name="xss"/> 4. XSS and CSRF Prevention
 
