@@ -28,7 +28,47 @@ The objective of this Web Application Security group project is to enhance the p
 ## <a name="web"/>Web Application Security Enhancements:
 
 ### <a name="inp"/> 1.Input Validation
+for login.php and LoginProcess.php
+Client-Side Validation
+Username Validation:
+Implementation: The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
 
+Password Validation:
+Length Check: The password must be at least 8 characters long
+Uppercase Check: The password must contain at least one uppercase letter, enforced using the regex /[A-Z]/.
+Alphanumeric Check: The password must be alphanumeric, ensuring it contains only letters and numbers, using the regex /[a-zA-Z0-9]/.
+
+Server-Side Validation
+SQL Injection Prevention
+Implementation: The username is sanitized using real_escape_string before it is used in the SQL query.
+Password Verification
+Implementation: The submitted password is checked against the hashed password stored in the database using password_verify
+Session Fixation Prevention:
+Implementation: session_regenerate_id(true) is called after a successful login.
+
+for Signup.php and SignupProcess.php
+
+Client-Side Validation:
+HTML5 Validation: Uses the required attribute to ensure fields are not empty.
+JavaScript Validation:
+Username Validation:
+The username is validated to ensure it contains only alphanumeric characters using the regex /^[a-zA-Z0-9]+$/.
+Password Validation:
+The password is validated to ensure it is at least 8 characters long.
+It must contain at least one uppercase letter, validated using the regex /[A-Z]/.
+It must be alphanumeric, validated using the regex /[a-zA-Z0-9]/.
+
+Server-Side Validation:
+Sanitization: Uses htmlspecialchars and trim to sanitize inputs, preventing XSS attacks.
+Validation:
+Username: Ensures it is alphanumeric.
+Password: 
+Check for uppercase letter:
+preg_match('/[A-Z]/', $password): This checks if the password contains at least one uppercase letter (A-Z).
+Check for alphanumeric:
+preg_match('/[a-zA-Z0-9]/', $password): This ensures that the password contains only alphanumeric characters (a-z, A-Z, 0-9).
+Password Hashing: Hashes the password using password_hash with the PASSWORD_BCRYPT algorithm.
+Database Check: Checks if the username already exists in the database to prevent duplicates.
 
 ### <a name="authe"/> 2. Authentication
 
