@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +20,7 @@
 
         // Validate login
         if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        header("Location: booking.php");
+        header("Location: login.php");
         exit;
         }
     ?>
@@ -70,54 +69,67 @@
         <button id="more">Book Now</button>
     </div>
 
-    <div class="body">  
+<div class="body">  
     <div class="container">
         <div class="content">
-        
-        <!-- Update the action attribute to point to BookingProcess.php -->
-        <form action="BookingProcess.php" id="form" method="post">
+        <form action="#" id="form">
             <div class="user_details">
 
-            <div class="input_box">
-                <label for="name">Name :</label> 
-                <input type="text" name="name" id="name">
-            </div>
-               
-            <div class="input_box">
-                <label for="pnumber">Phone no. :</label>
-                <input type="text" name="phoneNumber" id="phoneNumber">
-            </div> 
+        <div class="input_box">
+            <label for="fname">First Name :</label>
+            <input type="text" name="fname" id="fname">
+        </div>
 
-            <div class="input_box">        
-                <label for="checkInDate">Check-in :</label>
-                <input type="date" name="checkInDate" id="checkInDate">
-            </div>
+        <div class="input_box">
+            <label for="lname">Last Name :</label> 
+            <input type="text" name="lname" id="lname">
+        </div>
+       
+        <div class="input_box">
+            <label for="pnumber">Phone no. :</label>
+            <input type="text" name="pnumber" id="pnumber">
+        </div> 
 
-            <div class="input_box">
-                <label for="checkOutDate">Check-out :</label>
-                <input type="date" name="checkOutDate" id="checkOutDate">
-            </div> 
+        <div class="input_box">
+            <label for="email">Email :</label>
+            <input type="text" name="email" id="email">
+        </div> 
 
-            <div class="input_box">
-                <label for="numAdults">No. adult :</label>
-                <input type="number" name="numAdults" id="numAdults">
-            </div>
-             
-            <div class="input_box">
-                <label for="numChildren">No. children :</label>
-                <input type="number" name="numChildren" id="children">
-            </div>
-            
-            <!-- Add a submit button to the form -->
-            <div class="button">
-                <input type="submit" value="Submit Booking">
-            </div>
-            
-            </div>
+        <div class="input_box">        
+            <label for="cin">Check-in :</label>
+            <input type="date" name="cin" id="cin">
+        </div>
+
+        <div class="input_box">
+            <label for="cout">Check-out :</label>
+            <input type="date" name="cout" id="cout">
+        </div> 
+
+        <div class="input_box">
+            <label for="adult">No. adult :</label>
+            <input type="number" name="adult" id="adult">
+         </div>
+         
+         <div class="input_box">
+            <label for="children">No. children :</label>
+            <input type="number" name="children" id="children">
+        </div>
+
+        </div>
+        
+        <div class="button" onclick="Book_Alert()">
+            <input type="hidden" name="csrf_token" value="<?php echo $token; ?>">
+            <input type="submit" value="Book">
+          </div>
+       
         </form>
         </div>
         </div>
     </div>
+</div>
+<script src="https://kit.fontawesome.com/57086d82eb.js" crossorigin="anonymous"></script>
+</body>
+</html>
 </div>
 <script src="https://kit.fontawesome.com/57086d82eb.js" crossorigin="anonymous"></script>
 </body>
