@@ -97,7 +97,9 @@ No Explicit XSS Protection in the Displayed Code: The excerpt does not show any 
 Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and trim() to sanitize user inputs, which is a common defense against XSS attacks. This function is applied to the $name and $message variables after they are received from the POST request, ensuring that any HTML special characters are converted to their corresponding HTML entities. This prevents malicious scripts from being executed in the browser.
 
 ### <a name="data"/> 5. Database Security Principles
+SQL Injection Prevention: The code uses $conn->real_escape_string($username) to escape special characters in the $username variable before it is used in the SQL query. This is a basic measure against SQL injection attacks.
 
+Password Hashing Verification: It uses password_verify($password, $row['password']) to check the password. This function is secure for verifying hashed passwords, indicating that passwords are not stored in plain text in the database.
 
 ### <a name="fil"/> 6. File Security Principles
 
