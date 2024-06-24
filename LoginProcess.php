@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
 // Database credentials
 $servername = "localhost";
 $username = "root";
