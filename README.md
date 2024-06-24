@@ -88,7 +88,13 @@ Enforcing Absolute Session Timeout
 Explanation: This code enforces an absolute session timeout, where the session is terminated after a fixed duration (1 hour) regardless of user activity. The $_SESSION['created'] variable stores the session creation time, and if the session age exceeds the specified lifetime, the session is destroyed, and the user is redirected to the login page.
 
 ### <a name="xss"/> 4. XSS and CSRF Prevention
+CSRF Protection:
+CSRF Token Generation: The code generates a CSRF token using bin2hex(random_bytes(32)) and stores it in the user's session with $_SESSION['csrf_token'] = $token;. This token should be included in forms as a hidden input and verified on form submission to protect against CSRF attacks.
+Session Management: The code initiates a session with session_start(), which is necessary for storing the CSRF token and maintaining user login states.
 
+No Explicit XSS Protection in the Displayed Code: The excerpt does not show any form handling or output encoding that would be directly related to preventing XSS attacks. XSS protection typically involves encoding or escaping output data that is inserted into HTML to ensure that any user-supplied data does not get executed as HTML or JavaScript. Since the snippet does not include any dynamic content output or form submission handling beyond the CSRF token generation, it's not possible to assess the XSS protection fully from this excerpt.
+
+Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and trim() to sanitize user inputs, which is a common defense against XSS attacks. This function is applied to the $name and $message variables after they are received from the POST request, ensuring that any HTML special characters are converted to their corresponding HTML entities. This prevents malicious scripts from being executed in the browser.
 
 ### <a name="data"/> 5. Database Security Principles
 
