@@ -48,6 +48,7 @@
             <li><a class="pasive" href="Facility.php">Facility</a></li>
             <li><a class="pasive" href="About Us.php">About Us</a></li>
             <li><a class="pasive" href="Contact.php">Contact Us</a></li>
+            <li><a class="pasive" href="logout.php">Log Out</a></li>
           </ul>
         </nav>
 
