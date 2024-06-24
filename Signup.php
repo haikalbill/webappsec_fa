@@ -33,8 +33,8 @@
           </label>
     
           <ul class="list-link-container">
-            <li><a class="pasive" href="login1.html">Login</a></li>
-            <li><a class="pasive" href="sign_up.html">Sign Up</a></li>
+            <li><a class="pasive" href="login.php">Login</a></li>
+            <li><a class="pasive" href="signup.php">Sign Up</a></li>
           </ul>
         </nav>
     <section class="form-container">
