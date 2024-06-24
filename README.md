@@ -102,7 +102,10 @@ SQL Injection Prevention: The code uses $conn->real_escape_string($username) to 
 Password Hashing Verification: It uses password_verify($password, $row['password']) to check the password. This function is secure for verifying hashed passwords, indicating that passwords are not stored in plain text in the database.
 
 ### <a name="fil"/> 6. File Security Principles
+To implement file security in the context of a PHP application like the one started in this project, we'll focus on securing the file handling and data processing aspects. The goal is to ensure confidentiality, integrity, and availability of the files and data managed by the application. Here's a step-by-step implementation plan:
 
+
+Validate File Types: Only allow specific file types to be uploaded by checking the PHP type
 
 #### Reference:
 
