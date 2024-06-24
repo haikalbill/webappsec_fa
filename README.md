@@ -22,23 +22,24 @@ Wazer
 
 
 ## <a name="obj"/>Objective
+<br>
 
-### <a name="inp"/> b.Input Validation
-
-
-### <a name="authe"/> d. Authentication
+### <a name="inp"/> 1.Input Validation
 
 
-### <a name="autho"/>e. Authorization
+### <a name="authe"/> 2. Authentication
 
 
-### <a name="xss"/>f. XSS and CSRF Prevention
+### <a name="autho"/> 3. Authorization
 
 
-### <a name="data"/>g. Database Security Principles
+### <a name="xss"/> 4. XSS and CSRF Prevention
 
 
-### <a name="fil"/>h. File Security Principles
+### <a name="data"/> 5. Database Security Principles
+
+
+### <a name="fil"/> 6. File Security Principles
 
 
 #### Reference:
