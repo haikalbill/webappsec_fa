@@ -100,11 +100,11 @@ Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and 
 
 1. SQL Injection Prevention: The code uses $conn->real_escape_string($username) to escape special characters in the $username variable before it is used in the SQL query. This is a basic measure against SQL injection attacks.
 
-![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/fb217c25-27c3-4ed2-9f7d-46e4e2ac9989)
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/fb217c25-27c3-4ed2-9f7d-46e4e2ac9989)
 
 2. Password Hashing Verification: It uses password_verify($password, $row['password']) to check the password. This function is secure for verifying hashed passwords, indicating that passwords are not stored in plain text in the database.
 
-![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/70dc7215-9df9-43fd-9fa7-b8093c115ed0)
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/70dc7215-9df9-43fd-9fa7-b8093c115ed0)
 
 
 
