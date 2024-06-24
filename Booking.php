@@ -21,7 +21,7 @@
 
         // Validate login
         if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        header("Location: login.php");
+        header("Location: booking.php");
         exit;
         }
     ?>
