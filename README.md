@@ -18,6 +18,9 @@ Wazer
     5. [Database Security Principles](#data)
     6. [File Security Principles](#fil)
 
+## Tittle
+Hotel Booking
+
 ## <a name="int"/> Introduction
 <br>
 In our Web Application Security group project, we are tasked with enhancing our previous web application, developed during the Web Technologies course (INFO 2302), by incorporating comprehensive security measures. This involves applying all the security elements and components we've learned in class to ensure the web application is fortified against potential vulnerabilities. Our enhanced web application will demonstrate robust security practices, addressing the most critical aspects of web security. The culmination of this project will be a presentation of the secured web application during the examination week, showcasing our efforts in making the application resilient and secure.
