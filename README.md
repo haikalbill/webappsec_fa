@@ -87,7 +87,7 @@ Explanation: This code checks if the user has been inactive for a specified peri
 Enforcing Absolute Session Timeout
 Explanation: This code enforces an absolute session timeout, where the session is terminated after a fixed duration (1 hour) regardless of user activity. The $_SESSION['created'] variable stores the session creation time, and if the session age exceeds the specified lifetime, the session is destroyed, and the user is redirected to the login page.
 
-### <a name="xss"/> 4. XSS and CSRF Prevention
+### <a name="xss"/> 4. XSS and CSRF Prevention (Haikal)
 CSRF Protection:
 CSRF Token Generation: The code generates a CSRF token using bin2hex(random_bytes(32)) and stores it in the user's session with $_SESSION['csrf_token'] = $token;. This token should be included in forms as a hidden input and verified on form submission to protect against CSRF attacks.
 Session Management: The code initiates a session with session_start(), which is necessary for storing the CSRF token and maintaining user login states.
@@ -96,12 +96,12 @@ No Explicit XSS Protection in the Displayed Code: The excerpt does not show any 
 
 Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and trim() to sanitize user inputs, which is a common defense against XSS attacks. This function is applied to the $name and $message variables after they are received from the POST request, ensuring that any HTML special characters are converted to their corresponding HTML entities. This prevents malicious scripts from being executed in the browser.
 
-### <a name="data"/> 5. Database Security Principles
+### <a name="data"/> 5. Database Security Principles (Haikal)
 SQL Injection Prevention: The code uses $conn->real_escape_string($username) to escape special characters in the $username variable before it is used in the SQL query. This is a basic measure against SQL injection attacks.
 
 Password Hashing Verification: It uses password_verify($password, $row['password']) to check the password. This function is secure for verifying hashed passwords, indicating that passwords are not stored in plain text in the database.
 
-### <a name="fil"/> 6. File Security Principles
+### <a name="fil"/> 6. File Security Principles (Haikal)
 To implement file security in the context of a PHP application like the one started in this project, we'll focus on securing the file handling and data processing aspects. The goal is to ensure confidentiality, integrity, and availability of the files and data managed by the application. Here's a step-by-step implementation plan:
 
 
