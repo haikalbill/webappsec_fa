@@ -10,6 +10,7 @@ Wazer
 ## Table of Contents
 1. [Introduction](#int)
 2. [Objective](#obj)
+3. [Web Application Security Enhancements](#web)
     1. [Input Validation](#inp)
     2. [Authentication](#authe)
     3. [Authorization](#autho)
@@ -23,6 +24,8 @@ Wazer
 
 ## <a name="obj"/>Objective
 <br>
+
+## <a name="web"/>Web Application Security Enhancements:
 
 ### <a name="inp"/> 1.Input Validation
 
