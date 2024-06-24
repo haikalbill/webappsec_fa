@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-  // Start session
-  session_start();
+session_start();
+header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
 
 // Validate login
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
