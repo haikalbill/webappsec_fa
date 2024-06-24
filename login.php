@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+session_start();
+header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
