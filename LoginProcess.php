@@ -29,6 +29,9 @@ $result = $conn->query($sql);
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['password'])) {
+        // Regenerate session ID to prevent session fixation
+        session_regenerate_id(true);
+        
         // Set session variable
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
@@ -44,4 +47,27 @@ if ($result->num_rows == 1) {
 }
 
 $conn->close();
+?>
+
+
+<?php
+// Check if user is inactive for 30 minutes or session is older than 1 hour
+$inactive = 1800; // 30 minutes in seconds
+$session_lifetime = 3600; // 1 hour in seconds
+
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $inactive)) {
+    session_unset(); // unset $_SESSION variable for the run-time
+    session_destroy(); // destroy session data in storage
+    header("Location: login.php"); // Redirect to login page
+    exit;
+}
+
+if (isset($_SESSION['created']) && (time() - $_SESSION['created'] > $session_lifetime)) {
+    session_unset(); // unset $_SESSION variable for the run-time
+    session_destroy(); // destroy session data in storage
+    header("Location: login.php"); // Redirect to login page
+    exit;
+}
+
+$_SESSION['last_activity'] = time(); // Update last activity time stamp
 ?>
