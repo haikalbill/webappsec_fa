@@ -67,6 +67,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           <li><a class="pasive" href="Facility.php">Facility</a></li>
           <li><a class="active" href="About Us.php">About Us</a></li>
           <li><a class="pasive" href="Contact.php">Contact Us</a></li>
+          <li><a class="pasive" href="logout.php">Log Out</a></li>
         </ul>
       </nav>
 
