@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Validate login
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+  header("Location: login.php");
+  exit;
+}
+
 // Generate CSRF token
 if (!isset($_SESSION['csrf_token'])) {
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -39,7 +45,7 @@ function sanitizeInput($input) {
   <body ononline="onFunction()" onoffline="offFunction()">
 
     <nav>
-    <a class="logo-link" href="Index.php">
+    <a class="logo-link" href="Index.html">
       <nav class="nav-container">
       <div class="logo-container">
         <img class="logo-img" src="Image/Hotel logo.png" />
@@ -59,6 +65,7 @@ function sanitizeInput($input) {
       <li><a class="pasive" href="Facility.php">Facility</a></li>
       <li><a class="pasive" href="About Us.php">About Us</a></li>
       <li><a class="pasive" href="Contact.php">Contact Us</a></li>
+      <li><a class="pasive" href="logout.php">Log Out</a></li>
     </ul>
     </nav>
 
