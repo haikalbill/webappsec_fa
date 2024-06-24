@@ -76,7 +76,7 @@ function sanitizeInput($input) {
     <div class="flexbox f2">
       <h1 class="title-logo">Flower Hotel</h1>
       <p class="slogon">Here where the story start to bloom</p>
-      <button class="learn-more" type="button" onclick="learn_more()">LEARN MORE</button>
+      <button class="learn-more" type="button" onclick="window.location.href = 'About Us.php';">LEARN MORE</button>
 
       <p onclick="music_alert()" class="notice">Click Here </p>
     </div>
