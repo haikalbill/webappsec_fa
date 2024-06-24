@@ -24,7 +24,7 @@ In our Web Application Security group project, we are tasked with enhancing our 
 
 ## <a name="obj"/>Objective
 <br>
-
+The objective of this Web Application Security group project is to enhance the previously developed web application from the Web Technologies course (INFO 2302) by integrating comprehensive security measures. This involves implementing key security elements such as input validation, authentication, authorization, XSS and CSRF prevention, and enforcing database and file security. The goal is to ensure that the web application provides a secure service to its users, is resilient against common vulnerabilities, and remains available when needed. The project aims to demonstrate our ability to apply learned security principles and techniques to create a robust and secure web application
 ## <a name="web"/>Web Application Security Enhancements:
 
 ### <a name="inp"/> 1.Input Validation
