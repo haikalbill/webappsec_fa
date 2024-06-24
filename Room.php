@@ -27,13 +27,12 @@
       $_SESSION['csrf_token'] = $token;
     ?>
     <nav>
-      <a class="logo-link" href="Index.html">
+      <a class="logo-link" href="Index.php">
         <nav class="nav-container">
-          <div class="logo-container">
-            <img class="logo-img" src="Image/Hotel logo.png" />
-            <h4>Flower Hotel</h4>
-          </div>
-        </nav>
+        <div class="logo-container">
+          <img class="logo-img" src="Image/Hotel logo.png" />
+          <h4>Flower Hotel</h4>
+        </div>
       </a>
 
       <input type="checkbox" id="click" />
@@ -42,7 +41,7 @@
       </label>
 
       <ul class="list-link-container">
-        <li><a class="pasive" href="Index.php">Home</a></li>
+        <li><a class="passive" href="Index.php">Home</a></li>
         <li><a class="pasive" href="Booking.php">Booking</a></li>
         <li><a class="active" href="Room.php">Room</a></li>
         <li><a class="pasive" href="Facility.php">Facility</a></li>

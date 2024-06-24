@@ -18,13 +18,12 @@
   </head>
   <body ononline="onFunction()" onoffline="offFunction()">
     <nav>
-      <a class="logo-link" href="Index.html">
+      <a class="logo-link" href="Index.php">
         <nav class="nav-container">
-          <div class="logo-container">
-            <img class="logo-img" src="Image/Hotel logo.png" />
-            <h4>Flower Hotel</h4>
-          </div>
-        </nav>
+        <div class="logo-container">
+          <img class="logo-img" src="Image/Hotel logo.png" />
+          <h4>Flower Hotel</h4>
+        </div>
       </a>
 
       <input type="checkbox" id="click" />
@@ -40,7 +39,7 @@
         <li><a class="pasive" href="About Us.php">About Us</a></li>
         <li><a class="pasive" href="Contact.php">Contact Us</a></li>
       </ul>
-    </nav>
+      </nav>
 
     <h1 class="page-title">Facility</h1>
 

@@ -53,7 +53,7 @@
 <body ononline="onFunction()" onoffline="offFunction()">
    
     <nav>
-        <a class="logo-link" href="Index.html">
+        <a class="logo-link" href="Index.php">
         <nav class="nav-container">
           <div class="logo-container">
             <img class="logo-img" src="Image/Hotel logo.png" />

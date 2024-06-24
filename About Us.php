@@ -42,7 +42,7 @@
   <body ononline="onFunction()" onoffline="offFunction()">
    
     <nav>
-      <a class="logo-link" href="Index.html">
+      <a class="logo-link" href="Index.php">
       <nav class="nav-container">
         <div class="logo-container">
           <img class="logo-img" src="Image/Hotel logo.png" />
@@ -59,8 +59,8 @@
           <li><a class="pasive" href="Booking.php">Booking</a></li>
           <li><a class="pasive" href="Room.php">Room</a></li>
           <li><a class="pasive" href="Facility.php">Facility</a></li>
-          <li><a class="pasive" href="About Us.php">About Us</a></li>
-          <li><a class="active" href="Contact.php">Contact Us</a></li>
+          <li><a class="active" href="About Us.php">About Us</a></li>
+          <li><a class="pasive" href="Contact.php">Contact Us</a></li>
         </ul>
       </nav>
 
