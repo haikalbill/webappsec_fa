@@ -88,11 +88,14 @@ Enforcing Absolute Session Timeout
 Explanation: This code enforces an absolute session timeout, where the session is terminated after a fixed duration (1 hour) regardless of user activity. The $_SESSION['created'] variable stores the session creation time, and if the session age exceeds the specified lifetime, the session is destroyed, and the user is redirected to the login page.
 
 ### <a name="xss"/> 4. XSS and CSRF Prevention (Haikal)
+
+1. CSP Header: The script correctly sets a Content Security Policy header, which is a good practice for mitigating some types of XSS attacks by preventing the browser from loading malicious scripts from unauthorized sources.
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/deaf87ad-9df3-4fa2-ba8f-d10c87cc7e6e)
+
+
 CSRF Protection:
 CSRF Token Generation: The code generates a CSRF token using bin2hex(random_bytes(32)) and stores it in the user's session with $_SESSION['csrf_token'] = $token;. This token should be included in forms as a hidden input and verified on form submission to protect against CSRF attacks.
 Session Management: The code initiates a session with session_start(), which is necessary for storing the CSRF token and maintaining user login states.
-
-No Explicit XSS Protection in the Displayed Code: The excerpt does not show any form handling or output encoding that would be directly related to preventing XSS attacks. XSS protection typically involves encoding or escaping output data that is inserted into HTML to ensure that any user-supplied data does not get executed as HTML or JavaScript. Since the snippet does not include any dynamic content output or form submission handling beyond the CSRF token generation, it's not possible to assess the XSS protection fully from this excerpt.
 
 Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and trim() to sanitize user inputs, which is a common defense against XSS attacks. This function is applied to the $name and $message variables after they are received from the POST request, ensuring that any HTML special characters are converted to their corresponding HTML entities. This prevents malicious scripts from being executed in the browser.
 
@@ -105,6 +108,10 @@ Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and 
 2. Password Hashing Verification: It uses password_verify($password, $row['password']) to check the password. This function is secure for verifying hashed passwords, indicating that passwords are not stored in plain text in the database.
 
 - ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/70dc7215-9df9-43fd-9fa7-b8093c115ed0)
+
+3. Error Handling: Where a more secure approach is to handle errors without revealing details about the system or database structure to the end-user.
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/16abb892-e001-4634-9451-6da123a03100)
+
 
 
 
