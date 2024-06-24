@@ -4,6 +4,12 @@
   session_start();
   $csrf_token = bin2hex(random_bytes(32));
   $_SESSION['csrf_token'] = $csrf_token;
+
+  // Validate login
+  if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+  header("Location: login.php");
+  exit;
+  }
 ?>
 
 <html lang="en">
@@ -38,6 +44,7 @@
         <li><a class="active" href="Facility.php">Facility</a></li>
         <li><a class="pasive" href="About Us.php">About Us</a></li>
         <li><a class="pasive" href="Contact.php">Contact Us</a></li>
+        <li><a class="pasive" href="logout.php">Log Out</a></li>
       </ul>
       </nav>
 
