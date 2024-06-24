@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +55,7 @@
 <body ononline="onFunction()" onoffline="offFunction()">
    
     <nav>
-        <a class="logo-link" href="Index.php">
+        <a class="logo-link" href="Index.html">
         <nav class="nav-container">
           <div class="logo-container">
             <img class="logo-img" src="Image/Hotel logo.png" />
