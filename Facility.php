@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-  // Start session and generate CSRF token
-  session_start();
+session_start();
+header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
   $csrf_token = bin2hex(random_bytes(32));
   $_SESSION['csrf_token'] = $csrf_token;
 
