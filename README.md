@@ -137,10 +137,6 @@ CSRF Token Generation: The code generates a CSRF token using bin2hex(random_byte
 - ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/e87f1e59-6497-4b26-8d7c-daaff417245f)
 
 
+#### References:
+1. Class Slides
 
-Validate File Types: Only allow specific file types to be uploaded by checking the PHP type
-
-#### Reference:
-
-  
-## Weekly Progress Report
