@@ -1,14 +1,12 @@
+<!DOCTYPE html>
 <?php
 session_start();
-
-// Validate login
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-  header("Location: login.php");
-  exit;
-}
+header("Content-Security-Policy: default-src 'self'; frame-src https://www.google.com/maps/embed?*; script-src 'self' https://ajax.googleapis.com");
+// Generate CSRF token
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  }
 ?>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -63,7 +61,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <body ononline="onFunction()" onoffline="offFunction()">
    
     <nav>
-        <a class="logo-link" href="Index.html">
+        <a class="logo-link" href="Index.php">
         <nav class="nav-container">
           <div class="logo-container">
             <img class="logo-img" src="Image/Hotel logo.png" />
@@ -82,26 +80,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <li><a class="pasive" href="Facility.php">Facility</a></li>
             <li><a class="pasive" href="About Us.php">About Us</a></li>
             <li><a class="active" href="Contact.php">Contact Us</a></li>
-            <li><a class="pasive" href="logout.php">Log Out</a></li>
-          </ul>
+          <li><a class="pasive" href="logout.php">Log Out</a></li>
+          
+        </ul>
         </nav>
 
     <h1 class="title-page">Contact Us</h1>
    <div class="flexbox-container">
         <div class="flexbox-main">
-            <h3 class="contact-label ">Social Media</h3>
-            <div class="box">
-                <div class="box-icon">
-                    <div class="icon"><a href="https://www.google.com/gmail/"><i class="fas fa-envelope-square fa-5x"></i></a></div>
-                    <div class="icon"><a href="https://www.instagram.com/"><i class="fab fa-instagram-square fa-5x"></i></a></div>
-                    <div class="icon"><a href="https://twitter.com/"><i class="fab fa-twitter-square fa-5x"></i></a></div>
-                    <div class="icon"><a href="https://www.facebook.com/"><i class="fab fa-facebook-square fa-5x"></i></a></div>
-                </div>
-            </div>
 
             <h3 class="contact-label">Contact</h3>
             <div class="box b1">
-                <h4 class="content phoneN">Phone No.  : 09-XXXXXXX</h4>
+                <h4 class="content phoneN">Phone No.  : 012-3456789</h4>
             </div>
 
             <h3 class="contact-label">Address</h3>
