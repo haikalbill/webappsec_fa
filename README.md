@@ -132,7 +132,10 @@ CSRF Token Generation: The code generates a CSRF token using bin2hex(random_byte
 
 
 ### <a name="fil"/> 6. File Security Principles (Haikal)
-To implement file security in the context of a PHP application like the one started in this project, we'll focus on securing the file handling and data processing aspects. The goal is to ensure confidentiality, integrity, and availability of the files and data managed by the application. Here's a step-by-step implementation plan:
+1. SSL Certificate & HTTPS: Use a HTTPS to encrypt data transmitted between the client and server, protecting the data from being intercepted or tampered with.
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/f6b98825-37d6-4d47-b8f7-24fea74b4cb9)
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/e87f1e59-6497-4b26-8d7c-daaff417245f)
+
 
 
 Validate File Types: Only allow specific file types to be uploaded by checking the PHP type
