@@ -111,6 +111,8 @@ CSRF Token Generation: The code generates a CSRF token using bin2hex(random_byte
 2. Password Hashing Verification: It uses password_verify($password, $row['password']) to check the password. This function is secure for verifying hashed passwords, indicating that passwords are not stored in plain text in the database.
 
 - ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/70dc7215-9df9-43fd-9fa7-b8093c115ed0)
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/51291578-33c6-4a46-aff5-79d2e9795926)
+
 
 3. Error Handling: Where a more secure approach is to handle errors without revealing details about the system or database structure to the end-user.
 - ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/16abb892-e001-4634-9451-6da123a03100)
