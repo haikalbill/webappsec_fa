@@ -95,7 +95,7 @@ Explanation: This code enforces an absolute session timeout, where the session i
 
 CSRF Protection:
 CSRF Token Generation: The code generates a CSRF token using bin2hex(random_bytes(32)) and stores it in the user's session with $_SESSION['csrf_token'] = $token;. This token should be included in forms as a hidden input and verified on form submission to protect against CSRF attacks.
-![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/abb7c0d4-3ef1-4096-a416-7d48ac67f71f)
+- ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/abb7c0d4-3ef1-4096-a416-7d48ac67f71f)
 
 2. Sanitization of Input: The function sanitizeInput() uses htmlspecialchars() and trim() to sanitize user inputs, which is a common defense against XSS attacks. This function is applied to the $name and $message variables after they are received from the POST request, ensuring that any HTML special characters are converted to their corresponding HTML entities. This prevents malicious scripts from being executed in the browser.
 - ![image](https://github.com/haikalbill/webappsec_fa/assets/90669152/06575ff1-f0fe-430c-a243-9e9915b9d648)
