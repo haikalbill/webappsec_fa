@@ -33,7 +33,7 @@ The objectives of this Web Application Security group project is to enhance the 
 
 ## Task Distribution
 | Name | Matric No | Task |
-|---------|-------------|
+|---------|-------------|------------------------------|
 | Nik Raeidi Bin Nik Salimi | 2013837 | Input Validation, Aunthentication, Authorization |
 | Muhammad Haikal Bin Azhari | 2014711 | XSS & CSRF Prevention, Database Security Principles, File Security Principles |
 
