@@ -27,35 +27,26 @@ $username = $conn->real_escape_string($username);
 $sql = "SELECT * FROM users WHERE username='$username'";
 $result = $conn->query($sql);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $admin_username = "Admin123"; // change this to your admin username
-    $admin_password = "Admin123"; // change this to your admin password
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    if ($username === $admin_username && $password === $admin_password) {
-        $_SESSION['admin_loggedin'] = true;
-        header("Location: admin.php");
-        exit;
-    } else {
-        $error = "Invalid username or password";
-    }
-}
-
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['password'])) {
         // Regenerate session ID to prevent session fixation
         session_regenerate_id(true);
-        
-        // Set session variable
+
+        // Set session variables
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
-        
-        // Redirect to Index.php
-        header("Location: Index.php");
-        exit;
+
+        // Check if the user is Admin321
+        if ($username === 'Admin123') {
+            $_SESSION['admin_loggedin'] = true;
+            header("Location: admin.php");
+            exit;
+        } else {
+            // Redirect to Index.php for regular users
+            header("Location: Index.php");
+            exit;
+        }
     } else {
         echo "<script>alert('Incorrect password.'); window.location.href='login.php';</script>";
     }
@@ -65,7 +56,6 @@ if ($result->num_rows == 1) {
 
 $conn->close();
 ?>
-
 
 <?php
 // Check if user is inactive for 30 minutes or session is older than 1 hour
