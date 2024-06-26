@@ -87,6 +87,76 @@ Database Check: Checks if the username already exists in the database to prevent
 
 ### <a name="authe"/> 2. Authentication
 
+1. Added a login and signup page where username and password need to be enter.
+
+2. Securing Password-Based Authentication
+- The password complexity are set Numbers + Lowercase Letters + Uppercase letters + at least 8 characters by using regex signup.php
+````
+var usernameRegex = /^[a-zA-Z0-9]+$/;
+        if (!usernameRegex.test(username)) {
+            alert('Username can only contain letters and numbers.');
+            return false;
+        }
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters long.');
+            return false;
+        }
+        var uppercaseRegex = /[A-Z]/;
+        if (!uppercaseRegex.test(password)) {
+            alert('Password must contain at least one uppercase letter.');
+            return false;
+        }
+        var lowercaseRegex = /[a-z]/;
+        if (!lowercaseRegex.test(password)) {
+            alert('Password must contain at least one lowercase letter.');
+            return false;
+        }
+        var numberRegex = /[0-9]/;
+        if (!numberRegex.test(password)) {
+            alert('Password must contain at least one number.');
+            return false;
+        }
+        var alphanumericRegex = /[a-zA-Z0-9]/;
+        if (!alphanumericRegex.test(password)) {
+            alert('Password must be alphanumeric.');
+            return false;
+        }
+````
+- Properly store passwords by using hashing algorithm
+````
+// Hash the password
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+````
+![Screenshot 2024-06-26 085516](https://github.com/haikalbill/webappsec_fa/assets/162496054/7af3f5ca-d478-43df-ab65-a4195292d227)
+
+3. Allow account lockout (prevent brute-force attack)
+- Allow account to be lockout for 15 minutes if failed attempt more than 5 times and timeframe are recorded in the database.  
+````
+// Check if the account is locked
+    $lockout_duration = 15 * 60; // 15 minutes in seconds
+    $current_time = time();
+    $last_failed_attempt = strtotime($row['last_failed_attempt']);
+    $failed_attempts = $row['failed_attempts'];
+
+    if ($failed_attempts >= 5 && ($current_time - $last_failed_attempt) < $lockout_duration) {
+        echo "<script>alert('Account is locked. Please try again after 15 minutes.'); window.location.href='login.php';</script>";
+        exit;
+    } elseif (($current_time - $last_failed_attempt) >= $lockout_duration) {
+        // Reset failed attempts after lockout duration
+        $failed_attempts = 0;
+        $sql = "UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username='$username'";
+        $conn->query($sql);
+    }
+    if (password_verify($password, $row['password'])) {
+        // Reset failed attempts on successful login
+        $sql = "UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username='$username'";
+        $conn->query($sql);
+        ...
+        // Update failed attempts count and timestamp
+        $failed_attempts++;
+        $sql = "UPDATE users SET failed_attempts = $failed_attempts, last_failed_attempt = NOW() WHERE username='$username'";
+        $conn->query($sql);
+````
 
 ### <a name="autho"/> 3. Authorization
 Regenerating Session IDs on Authentication
