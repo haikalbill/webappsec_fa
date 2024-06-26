@@ -44,7 +44,6 @@ The objectives of this Web Application Security group project is to enhance the 
 
 ### <a name="inp"/> 1.Input Validation
 1. For login.php and LoginProcess.php
-- Client-Side Validation
   - Username Validation:
     - The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
   - Password Validation:
@@ -53,14 +52,6 @@ The objectives of this Web Application Security group project is to enhance the 
     - Lowercase Check: The password must contain at least one uppercase letter, enforced using the regex /[a-z]/.
     - Number Check: The password must contain at least one number, enforced using the regex /[0-9]/.
     - Alphanumeric Check: The password must be alphanumeric, ensuring it contains only letters and numbers, using the regex /[a-zA-Z0-9]/.
-
-- Server-Side Validation
-  - SQL Injection Prevention
-    - The username is sanitized using real_escape_string before it is used in the SQL query.
-  - Password Verification
-    - The submitted password is checked against the hashed password stored in the database using password_verify
-  - Session Fixation Prevention:
-    - session_regenerate_id(true) is called after a successful login.
 ````
           var usernameRegex = /^[a-zA-Z0-9]+$/;
           if (!usernameRegex.test(username)) {
