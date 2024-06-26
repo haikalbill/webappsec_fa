@@ -10,7 +10,7 @@ Wazer
 ## Table of Contents
 1. [Introduction](#int)
 2. [Objective](#obj)
-3. Task
+3. [Task](#task)
 4. [Web Application Security Enhancements](#web)
     1. [Input Validation](#inp)
     2. [Authentication](#authe)
@@ -32,7 +32,7 @@ In our Web Application Security group project, we are tasked with enhancing our 
 The objectives of this Web Application Security group project is to enhance the previously developed web application from the Web Technologies course (INFO 2302) by integrating comprehensive security measures. This involves implementing key security elements such as input validation, authentication, authorization, XSS and CSRF prevention, and enforcing database and file security. The goal is to ensure that the web application provides a secure service to its users, is resilient against common vulnerabilities, and remains available when needed. The project aims to demonstrate our ability to apply learned security principles and techniques to create a robust and secure web application
 
 
-## Task Distribution
+## <a name="task"/>Task Distribution
 | Name | Matric No | Task |
 |---------|-------------|------------------------------|
 | Nik Raeidi Bin Nik Salimi | 2013837 | Input Validation, Aunthentication, Authorization |
