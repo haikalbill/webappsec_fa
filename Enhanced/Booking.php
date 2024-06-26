@@ -8,8 +8,8 @@ $_SESSION['csrf_token'] = $token;
 
 // Validate login
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-header("Location: login.php");
-exit;
+    header("Location: login.php");
+    exit;
 }
 ?>
 <html lang="en">
@@ -26,6 +26,56 @@ exit;
     <script src="Javascript/onoffline.js"></script>
     <script src="Javascript/Hide_form.js"></script>
 
+    <script>
+        function validateBookingForm() {
+            var name = document.getElementById('name').value;
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            var checkInDate = document.getElementById('checkInDate').value;
+            var checkOutDate = document.getElementById('checkOutDate').value;
+            var numAdults = document.getElementById('numAdults').value;
+            var numChildren = document.getElementById('children').value;
+
+            // Regex for name validation
+            var nameRegex = /^[a-zA-Z\s]+$/;
+            if (!nameRegex.test(name)) {
+                alert('Name can only contain letters and spaces.');
+                return false;
+            }
+
+            // Regex for phone number validation
+            var phoneRegex = /^[0-9]{10,15}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                alert('Phone number must be between 10 and 15 digits.');
+                return false;
+            }
+
+            // Check date fields
+            if (checkInDate === '') {
+                alert('Check-in date is required.');
+                return false;
+            }
+            if (checkOutDate === '') {
+                alert('Check-out date is required.');
+                return false;
+            }
+            if (new Date(checkInDate) >= new Date(checkOutDate)) {
+                alert('Check-out date must be after the check-in date.');
+                return false;
+            }
+
+            // Check number fields
+            if (numAdults <= 0) {
+                alert('Number of adults must be at least 1.');
+                return false;
+            }
+            if (numChildren < 0) {
+                alert('Number of children cannot be negative.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body ononline="onFunction()" onoffline="offFunction()">
 
@@ -73,7 +123,7 @@ exit;
 <div class="body">  
     <div class="container">
         <div class="content">
-        <form action="BookingProcess.php" id="form" method="post">
+        <form action="BookingProcess.php" id="form" method="post" onsubmit="return validateBookingForm()">
             <input type="hidden" name="csrf_token" value="<?php echo $token; ?>">
             <div class="user_details">
 
@@ -125,3 +175,4 @@ exit;
 <script src="https://kit.fontawesome.com/57086d82eb.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
