@@ -43,7 +43,7 @@ The objectives of this Web Application Security group project is to enhance the 
 
 ## <a name="web"/>Web Application Security Enhancements:
 
-### <a name="inp"/> 1.Input Validation
+### <a name="inp"/> 1.Input Validation (Raeidi)
 1. For login.php and LoginProcess.php
   - Username Validation:
     - The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
@@ -267,7 +267,7 @@ if (!empty($errors)) {
 }
 ````
 
-### <a name="authe"/> 2. Authentication
+### <a name="authe"/> 2. Authentication (Raeidi)
 
 1. Added a login and signup page where username and password need to be enter.
 
@@ -340,7 +340,7 @@ $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $conn->query($sql);
 ````
 
-### <a name="autho"/> 3. Authorization
+### <a name="autho"/> 3. Authorization (Raeidi)
 1. Add a admin user where it can see the booking records and delete data.
 ````
 // Redirect to Index.php or admin.php based on user role
