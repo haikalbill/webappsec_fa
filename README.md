@@ -162,7 +162,7 @@ $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 1. Add a admin user where it can see the booking records and delete data.
 ````
 // Redirect to Index.php or admin.php based on user role
-         // Check if the user is Admin321
+         // Check if the user is Admin123
         if ($username === 'Admin123') {
             $_SESSION['admin_loggedin'] = true;
             header("Location: admin.php");
