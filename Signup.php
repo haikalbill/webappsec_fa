@@ -1,8 +1,12 @@
-<!DOCTYPE html>
 <?php
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://ajax.googleapis.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
 session_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
 ?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,35 +25,48 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self' https://a
     
     <script>
       function validateForm() {
-          var username = document.getElementById('username').value;
-          var password = document.getElementById('password').value;
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
 
-          var usernameRegex = /^[a-zA-Z0-9]+$/;
-          if (!usernameRegex.test(username)) {
-              alert('Username can only contain letters and numbers.');
-              return false;
-          }
+        var usernameRegex = /^[a-zA-Z0-9]+$/;
+        if (!usernameRegex.test(username)) {
+            alert('Username can only contain letters and numbers.');
+            return false;
+        }
 
-          if (password.length < 8) {
-              alert('Password must be at least 8 characters long.');
-              return false;
-          }
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters long.');
+            return false;
+        }
 
-          var uppercaseRegex = /[A-Z]/;
-          if (!uppercaseRegex.test(password)) {
-              alert('Password must contain at least one uppercase letter.');
-              return false;
-          }
+        var uppercaseRegex = /[A-Z]/;
+        if (!uppercaseRegex.test(password)) {
+            alert('Password must contain at least one uppercase letter.');
+            return false;
+        }
 
-          var alphanumericRegex = /[a-zA-Z0-9]/;
-          if (!alphanumericRegex.test(password)) {
-              alert('Password must be alphanumeric.');
-              return false;
-          }
+        var lowercaseRegex = /[a-z]/;
+        if (!lowercaseRegex.test(password)) {
+            alert('Password must contain at least one lowercase letter.');
+            return false;
+        }
 
-          return true;
+        var numberRegex = /[0-9]/;
+        if (!numberRegex.test(password)) {
+            alert('Password must contain at least one number.');
+            return false;
+        }
+
+        var alphanumericRegex = /[a-zA-Z0-9]/;
+        if (!alphanumericRegex.test(password)) {
+            alert('Password must be alphanumeric.');
+            return false;
+        }
+
+        return true;
       }
     </script>
+
     
   </head>
   <body ononline="onFunction()" onoffline="offFunction()">
