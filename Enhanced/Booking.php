@@ -43,9 +43,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             }
 
             // Regex for phone number validation
-            var phoneRegex = /^[0-9]{10,15}$/;
+            var phoneRegex = /^[0-9]{10,11}$/;
             if (!phoneRegex.test(phoneNumber)) {
-                alert('Phone number must be between 10 and 15 digits.');
+                alert('Phone number must be between 10 and 11 digits.');
                 return false;
             }
 
