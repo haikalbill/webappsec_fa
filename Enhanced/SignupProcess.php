@@ -1,12 +1,11 @@
 <?php
 session_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://ajax.googleapis.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
 header("X-XSS-Protection: 1; mode=block");
 
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
-
 
 $servername = "localhost";
 $username = "root";
@@ -38,8 +37,14 @@ if (!preg_match('/^[a-zA-Z0-9]+$/', $username)) {
 if (strlen($password) < 8) {
     die('Password must be at least 8 characters long.');
 }
+if (!preg_match('/[a-z]/', $password)) {
+    die('Password must contain at least one lowercase letter.');
+}
 if (!preg_match('/[A-Z]/', $password)) {
     die('Password must contain at least one uppercase letter.');
+}
+if (!preg_match('/[0-9]/', $password)) {
+    die('Password must contain at least one number.');
 }
 if (!preg_match('/[a-zA-Z0-9]/', $password)) {
     die('Password must be alphanumeric.');
@@ -49,17 +54,12 @@ if (!preg_match('/[a-zA-Z0-9]/', $password)) {
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
 // Check if username already exists
-// Check if username already exists using prepared statement
-$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$stmt->bind_param("s", $username); // "s" indicates the type is a string
-$stmt->execute();
-$result = $stmt->get_result();
+$sql = "SELECT * FROM users WHERE username='$username'";
+$result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     die('Username already exists.');
 }
-
-$stmt->close();
 
 // Insert user into database
 $sql = "INSERT INTO users (username, password) VALUES ('$username', '$hashedPassword')";
