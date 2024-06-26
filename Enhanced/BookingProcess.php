@@ -14,6 +14,7 @@ if (!isset($_SESSION['csrf_token'])) {
 //     exit;
 // }
 // signup_process.php
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -33,6 +34,45 @@ $checkInDate = $_POST['checkInDate'];
 $checkOutDate = $_POST['checkOutDate'];
 $numAdults = $_POST['numAdults'];
 $numChildren = $_POST['numChildren'];
+
+// Validate name
+if (!preg_match('/^[a-zA-Z\s]+$/', $name)) {
+    $errors[] = 'Name can only contain letters and spaces.';
+}
+
+// Validate phone number
+if (!preg_match('/^[0-9]{10,11}$/', $phoneNumber)) {
+    $errors[] = 'Phone number must be between 10 and 11 digits.';
+}
+
+// Validate dates
+if (empty($checkInDate)) {
+    $errors[] = 'Check-in date is required.';
+}
+if (empty($checkOutDate)) {
+    $errors[] = 'Check-out date is required.';
+}
+if (!empty($checkInDate) && !empty($checkOutDate) && strtotime($checkInDate) >= strtotime($checkOutDate)) {
+    $errors[] = 'Check-out date must be after the check-in date.';
+}
+
+// Validate number of adults
+if ($numAdults <= 0) {
+    $errors[] = 'Number of adults must be at least 1.';
+}
+
+// Validate number of children
+if ($numChildren < 0) {
+    $errors[] = 'Number of children cannot be negative.';
+}
+
+// If there are validation errors, display them and stop execution
+if (!empty($errors)) {
+    foreach ($errors as $error) {
+        echo "<script>alert('$error'); window.history.back();</script>";
+    }
+    exit;
+}
 
 // Insert data into database
 $sql = "INSERT INTO booking (name, phoneNumber, checkInDate, checkOutDate, numAdults, numChildren  ) VALUES ('$name','$phoneNumber', '$checkInDate', '$checkOutDate','$numAdults', '$numChildren')";
