@@ -43,8 +43,8 @@ The objectives of this Web Application Security group project is to enhance the 
 ## <a name="web"/>Web Application Security Enhancements:
 
 ### <a name="inp"/> 1.Input Validation
-for login.php and LoginProcess.php
-Client-Side Validation
+1. For login.php and LoginProcess.php
+- Client-Side Validation
 Username Validation:
 Implementation: The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
 
@@ -92,35 +92,40 @@ Database Check: Checks if the username already exists in the database to prevent
 2. Securing Password-Based Authentication
 - The password complexity are set Numbers + Lowercase Letters + Uppercase letters + at least 8 characters by using regex
 ````
-var usernameRegex = /^[a-zA-Z0-9]+$/;
-        if (!usernameRegex.test(username)) {
+          var usernameRegex = /^[a-zA-Z0-9]+$/;
+          if (!usernameRegex.test(username)) {
             alert('Username can only contain letters and numbers.');
             return false;
-        }
-        if (password.length < 8) {
+          }
+
+          if (password.length < 8) {
             alert('Password must be at least 8 characters long.');
             return false;
-        }
-        var uppercaseRegex = /[A-Z]/;
-        if (!uppercaseRegex.test(password)) {
+          }
+
+          var uppercaseRegex = /[A-Z]/;
+          if (!uppercaseRegex.test(password)) {
             alert('Password must contain at least one uppercase letter.');
             return false;
-        }
-        var lowercaseRegex = /[a-z]/;
-        if (!lowercaseRegex.test(password)) {
+          }
+
+          var lowercaseRegex = /[a-z]/;
+          if (!lowercaseRegex.test(password)) {
             alert('Password must contain at least one lowercase letter.');
             return false;
-        }
-        var numberRegex = /[0-9]/;
-        if (!numberRegex.test(password)) {
+          }
+
+          var numberRegex = /[0-9]/;
+          if (!numberRegex.test(password)) {
             alert('Password must contain at least one number.');
             return false;
-        }
-        var alphanumericRegex = /[a-zA-Z0-9]/;
-        if (!alphanumericRegex.test(password)) {
+          }
+
+          var alphanumericRegex = /[a-zA-Z0-9]/;
+          if (!alphanumericRegex.test(password)) {
             alert('Password must be alphanumeric.');
             return false;
-        }
+          }
 ````
 - Properly store passwords by using hashing algorithm
 ````
