@@ -1,6 +1,6 @@
 <?php
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://ajax.googleapis.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
 session_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
 
 $servername = "localhost";
 $username = "root";
@@ -32,8 +32,14 @@ if (!preg_match('/^[a-zA-Z0-9]+$/', $username)) {
 if (strlen($password) < 8) {
     die('Password must be at least 8 characters long.');
 }
+if (!preg_match('/[a-z]/', $password)) {
+    die('Password must contain at least one lowercase letter.');
+}
 if (!preg_match('/[A-Z]/', $password)) {
     die('Password must contain at least one uppercase letter.');
+}
+if (!preg_match('/[0-9]/', $password)) {
+    die('Password must contain at least one number.');
 }
 if (!preg_match('/[a-zA-Z0-9]/', $password)) {
     die('Password must be alphanumeric.');
