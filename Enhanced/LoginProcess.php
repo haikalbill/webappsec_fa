@@ -29,10 +29,31 @@ $result = $conn->query($sql);
 
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
+
+    // Check if the account is locked
+    $lockout_duration = 15 * 60; // 15 minutes in seconds
+    $current_time = time();
+    $last_failed_attempt = strtotime($row['last_failed_attempt']);
+    $failed_attempts = $row['failed_attempts'];
+
+    if ($failed_attempts >= 5 && ($current_time - $last_failed_attempt) < $lockout_duration) {
+        echo "<script>alert('Account is locked. Please try again after 15 minutes.'); window.location.href='login.php';</script>";
+        exit;
+    } elseif (($current_time - $last_failed_attempt) >= $lockout_duration) {
+        // Reset failed attempts after lockout duration
+        $failed_attempts = 0;
+        $sql = "UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username='$username'";
+        $conn->query($sql);
+    }
+
     if (password_verify($password, $row['password'])) {
+        // Reset failed attempts on successful login
+        $sql = "UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username='$username'";
+        $conn->query($sql);
+
         // Regenerate session ID to prevent session fixation
         session_regenerate_id(true);
-
+        
         // Set session variables
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
@@ -48,6 +69,11 @@ if ($result->num_rows == 1) {
             exit;
         }
     } else {
+        // Update failed attempts count and timestamp
+        $failed_attempts++;
+        $sql = "UPDATE users SET failed_attempts = $failed_attempts, last_failed_attempt = NOW() WHERE username='$username'";
+        $conn->query($sql);
+
         echo "<script>alert('Incorrect password.'); window.location.href='login.php';</script>";
     }
 } else {
@@ -78,3 +104,4 @@ if (isset($_SESSION['created']) && (time() - $_SESSION['created'] > $session_lif
 
 $_SESSION['last_activity'] = time(); // Update last activity time stamp
 ?>
+
