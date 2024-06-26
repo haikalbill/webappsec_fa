@@ -90,7 +90,7 @@ Database Check: Checks if the username already exists in the database to prevent
 1. Added a login and signup page where username and password need to be enter.
 
 2. Securing Password-Based Authentication
-- The password complexity are set Numbers + Lowercase Letters + Uppercase letters + at least 8 characters by using regex signup.php
+- The password complexity are set Numbers + Lowercase Letters + Uppercase letters + at least 8 characters by using regex
 ````
 var usernameRegex = /^[a-zA-Z0-9]+$/;
         if (!usernameRegex.test(username)) {
@@ -159,14 +159,49 @@ $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 ````
 
 ### <a name="autho"/> 3. Authorization
-Regenerating Session IDs on Authentication
-Explanation: This function regenerates the session ID upon successful login, which helps prevent session fixation attacks. By regenerating the session ID, you ensure that a new, unique session is created for each authenticated user session.
+1. Add a admin user where it can see the booking records and delete data.
+````
+// Redirect to Index.php or admin.php based on user role
+         // Check if the user is Admin321
+        if ($username === 'Admin123') {
+            $_SESSION['admin_loggedin'] = true;
+            header("Location: admin.php");
+            exit;
+        } else {
+            // Redirect to Index.php for regular users
+            header("Location: Index.php");
+            exit;
+        }
+````
 
-Enforcing Idle Session Timeout
-Explanation: This code checks if the user has been inactive for a specified period (30 minutes). If the user is inactive for longer than this period, the session is destroyed, and the user is redirected to the login page. The $_SESSION['last_activity'] variable is updated with the current timestamp on each request to track the user's activity.
+2. Regenerating Session IDs on Authentication
+````
+session_regenerate_id(true);
+````
+  
+3. Enforcing Idle Session Timeout
+````
+$inactive = 1800; // 30 minutes in seconds
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $inactive)) {
+    session_unset(); // unset $_SESSION variable for the run-time
+    session_destroy(); // destroy session data in storage
+    header("Location: login.php"); // Redirect to login page
+    exit;
+}
+$_SESSION['last_activity'] = time(); // Update last activity time stamp
+````
 
-Enforcing Absolute Session Timeout
-Explanation: This code enforces an absolute session timeout, where the session is terminated after a fixed duration (1 hour) regardless of user activity. The $_SESSION['created'] variable stores the session creation time, and if the session age exceeds the specified lifetime, the session is destroyed, and the user is redirected to the login page.
+4. Enforcing Absolute Session Timeout
+````
+$session_lifetime = 3600; // 1 hour in seconds
+if (isset($_SESSION['created']) && (time() - $_SESSION['created'] > $session_lifetime)) {
+    session_unset(); // unset $_SESSION variable for the run-time
+    session_destroy(); // destroy session data in storage
+    header("Location: login.php"); // Redirect to login page
+    exit;
+}
+$_SESSION['created'] = time(); // Set session creation time
+````
 
 ### <a name="xss"/> 4. XSS and CSRF Prevention (Haikal)
 
