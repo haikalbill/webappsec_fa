@@ -1,6 +1,11 @@
 <?php
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://ajax.googleapis.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
 session_start();
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://ajax.googleapis.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
+header("X-XSS-Protection: 1; mode=block");
+
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 // Database credentials
 $servername = "localhost";
@@ -104,4 +109,3 @@ if (isset($_SESSION['created']) && (time() - $_SESSION['created'] > $session_lif
 
 $_SESSION['last_activity'] = time(); // Update last activity time stamp
 ?>
-
