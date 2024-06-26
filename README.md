@@ -169,6 +169,104 @@ if ($result->num_rows > 0) {
 }
 ````
 
+3. For Booking.php and BookingProcess.php
+- Client-Side Validation
+  - Username Validation:
+    - The username field is validated to only allow letters and spaces  using the regex /^[a-zA-Z\s]+$/.
+  - Phone Validation:
+    - Only allow phone number between 10 and 11 digits using the regex /^[0-9]{10,11}$/.
+  - Date Validation:
+    - Ensure check-out date must be after the check-in date.
+  - Adults Validation:
+    - Ensure number of adults must be at least 1.
+  - Child Validation:
+    - Ensure number of children is not negative.
+
+- Server-Side Validation:
+  - Username Validation:
+    - preg_match('/^[a-zA-Z\s]+$/', $name), ensure name can only contain letters and spaces.
+  - Phone Validation:
+    - preg_match('/^[0-9]{10,11}$/', $phoneNumber). ensure phone number between 10 and 11 digits.
+  - Date Validation:
+    - empty($checkInDate), ensure check-in date is required.
+    - empty($checkOutDate), ensure ensure check-out date is required.
+    - strtotime($checkInDate) >= strtotime($checkOutDate), ensure check-out date after the check-in date.
+  - Adults Validation:
+    - ($numAdults <= 0), ensure number of adults must be at least 1.
+  - Child Validation:
+    - ($numChildren < 0), ensure number of children is not negative.
+````
+// Regex for name validation
+            var nameRegex = /^[a-zA-Z\s]+$/;
+            if (!nameRegex.test(name)) {
+                alert('Name can only contain letters and spaces.');
+                return false;
+            }
+            // Regex for phone number validation
+            var phoneRegex = /^[0-9]{10,11}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                alert('Phone number must be between 10 and 11 digits.');
+                return false;
+            }
+            // Check date fields
+            if (checkInDate === '') {
+                alert('Check-in date is required.');
+                return false;
+            }
+            if (checkOutDate === '') {
+                alert('Check-out date is required.');
+                return false;
+            }
+            if (new Date(checkInDate) >= new Date(checkOutDate)) {
+                alert('Check-out date must be after the check-in date.');
+                return false;
+            }
+            // Check number fields
+            if (numAdults <= 0) {
+                alert('Number of adults must be at least 1.');
+                return false;
+            }
+            if (numChildren < 0) {
+                alert('Number of children cannot be negative.');
+                return false;
+            }
+````
+````
+// Validate name
+if (!preg_match('/^[a-zA-Z\s]+$/', $name)) {
+    $errors[] = 'Name can only contain letters and spaces.';
+}
+// Validate phone number
+if (!preg_match('/^[0-9]{10,11}$/', $phoneNumber)) {
+    $errors[] = 'Phone number must be between 10 and 11 digits.';
+}
+// Validate dates
+if (empty($checkInDate)) {
+    $errors[] = 'Check-in date is required.';
+}
+if (empty($checkOutDate)) {
+    $errors[] = 'Check-out date is required.';
+}
+if (!empty($checkInDate) && !empty($checkOutDate) && strtotime($checkInDate) >= strtotime($checkOutDate)) {
+    $errors[] = 'Check-out date must be after the check-in date.';
+}
+// Validate number of adults
+if ($numAdults <= 0) {
+    $errors[] = 'Number of adults must be at least 1.';
+}
+// Validate number of children
+if ($numChildren < 0) {
+    $errors[] = 'Number of children cannot be negative.';
+}
+// If there are validation errors, display them and stop execution
+if (!empty($errors)) {
+    foreach ($errors as $error) {
+        echo "<script>alert('$error'); window.history.back();</script>";
+    }
+    exit;
+}
+````
+
 ### <a name="authe"/> 2. Authentication
 
 1. Added a login and signup page where username and password need to be enter.
