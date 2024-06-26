@@ -45,45 +45,142 @@ The objectives of this Web Application Security group project is to enhance the 
 ### <a name="inp"/> 1.Input Validation
 1. For login.php and LoginProcess.php
 - Client-Side Validation
-Username Validation:
-Implementation: The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
+  - Username Validation:
+    - The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
+  - Password Validation:
+    - Length Check: The password must be at least 8 characters long
+    - Uppercase Check: The password must contain at least one uppercase letter, enforced using the regex /[A-Z]/.
+    - Lowercase Check: The password must contain at least one uppercase letter, enforced using the regex /[a-z]/.
+    - Number Check: The password must contain at least one number, enforced using the regex /[0-9]/.
+    - Alphanumeric Check: The password must be alphanumeric, ensuring it contains only letters and numbers, using the regex /[a-zA-Z0-9]/.
 
-Password Validation:
-Length Check: The password must be at least 8 characters long
-Uppercase Check: The password must contain at least one uppercase letter, enforced using the regex /[A-Z]/.
-Alphanumeric Check: The password must be alphanumeric, ensuring it contains only letters and numbers, using the regex /[a-zA-Z0-9]/.
+- Server-Side Validation
+  - SQL Injection Prevention
+    - The username is sanitized using real_escape_string before it is used in the SQL query.
+  - Password Verification
+    - The submitted password is checked against the hashed password stored in the database using password_verify
+  - Session Fixation Prevention:
+    - session_regenerate_id(true) is called after a successful login.
+````
+          var usernameRegex = /^[a-zA-Z0-9]+$/;
+          if (!usernameRegex.test(username)) {
+            alert('Username can only contain letters and numbers.');
+            return false;
+          }
 
-Server-Side Validation
-SQL Injection Prevention
-Implementation: The username is sanitized using real_escape_string before it is used in the SQL query.
-Password Verification
-Implementation: The submitted password is checked against the hashed password stored in the database using password_verify
-Session Fixation Prevention:
-Implementation: session_regenerate_id(true) is called after a successful login.
+          if (password.length < 8) {
+            alert('Password must be at least 8 characters long.');
+            return false;
+          }
 
-for Signup.php and SignupProcess.php
+          var uppercaseRegex = /[A-Z]/;
+          if (!uppercaseRegex.test(password)) {
+            alert('Password must contain at least one uppercase letter.');
+            return false;
+          }
 
-Client-Side Validation:
-HTML5 Validation: Uses the required attribute to ensure fields are not empty.
-JavaScript Validation:
-Username Validation:
-The username is validated to ensure it contains only alphanumeric characters using the regex /^[a-zA-Z0-9]+$/.
-Password Validation:
-The password is validated to ensure it is at least 8 characters long.
-It must contain at least one uppercase letter, validated using the regex /[A-Z]/.
-It must be alphanumeric, validated using the regex /[a-zA-Z0-9]/.
+          var lowercaseRegex = /[a-z]/;
+          if (!lowercaseRegex.test(password)) {
+            alert('Password must contain at least one lowercase letter.');
+            return false;
+          }
 
-Server-Side Validation:
-Sanitization: Uses htmlspecialchars and trim to sanitize inputs, preventing XSS attacks.
-Validation:
-Username: Ensures it is alphanumeric.
-Password: 
-Check for uppercase letter:
-preg_match('/[A-Z]/', $password): This checks if the password contains at least one uppercase letter (A-Z).
-Check for alphanumeric:
-preg_match('/[a-zA-Z0-9]/', $password): This ensures that the password contains only alphanumeric characters (a-z, A-Z, 0-9).
-Password Hashing: Hashes the password using password_hash with the PASSWORD_BCRYPT algorithm.
-Database Check: Checks if the username already exists in the database to prevent duplicates.
+          var numberRegex = /[0-9]/;
+          if (!numberRegex.test(password)) {
+            alert('Password must contain at least one number.');
+            return false;
+          }
+
+          var alphanumericRegex = /[a-zA-Z0-9]/;
+          if (!alphanumericRegex.test(password)) {
+            alert('Password must be alphanumeric.');
+            return false;
+          }
+````
+
+2. For Signup.php and SignupProcess.php
+
+- Client-Side Validation
+  - HTML5 Validation:
+    - Uses the required attribute to ensure fields are not empty.
+  - Username Validation:
+    - The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
+  - Password Validation:
+    - Length Check: The password must be at least 8 characters long
+    - Uppercase Check: The password must contain at least one uppercase letter, enforced using the regex /[A-Z]/.
+    - Lowercase Check: The password must contain at least one uppercase letter, enforced using the regex /[a-z]/.
+    - Number Check: The password must contain at least one number, enforced using the regex /[0-9]/.
+    - Alphanumeric Check: The password must be alphanumeric, ensuring it contains only letters and numbers, using the regex /[a-zA-Z0-9]/.
+
+- Server-Side Validation:
+  - Sanitization:
+    - Uses htmlspecialchars and trim to sanitize inputs, preventing XSS attacks.
+  - Username Validation:
+    - preg_match('/^[a-zA-Z0-9]+$/', $username): check only alphanumeric characters are allowed
+  - Password Validation:
+    - Length Check: strlen($password) < 8 : ensure at least 8 characters long.
+    - Uppercase Check: preg_match('/[A-Z]/', $password) : ensure contain at least one uppercase letter.
+    - Lowercase Check: preg_match('/[a-z]/', $password) : ensure contain at least one lowercase letter.
+    - Number Check: preg_match('/[0-9]/', $password) : ensure contain at least one number.
+    - Alphanumeric Check: preg_match('/[a-zA-Z0-9]/', $password) : ensure it is only alphanumeric.
+  - Database Check: Checks if the username already exists in the database to prevent duplicates.
+````
+        var usernameRegex = /^[a-zA-Z0-9]+$/;
+        if (!usernameRegex.test(username)) {
+            alert('Username can only contain letters and numbers.');
+            return false;
+        }
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters long.');
+            return false;
+        }
+        var uppercaseRegex = /[A-Z]/;
+        if (!uppercaseRegex.test(password)) {
+            alert('Password must contain at least one uppercase letter.');
+            return false;
+        }
+        var lowercaseRegex = /[a-z]/;
+        if (!lowercaseRegex.test(password)) {
+            alert('Password must contain at least one lowercase letter.');
+            return false;
+        }
+        var numberRegex = /[0-9]/;
+        if (!numberRegex.test(password)) {
+            alert('Password must contain at least one number.');
+            return false;
+        }
+        var alphanumericRegex = /[a-zA-Z0-9]/;
+        if (!alphanumericRegex.test(password)) {
+            alert('Password must be alphanumeric.');
+            return false;
+        }
+````
+````
+// Validate password
+if (strlen($password) < 8) {
+    die('Password must be at least 8 characters long.');
+}
+if (!preg_match('/[a-z]/', $password)) {
+    die('Password must contain at least one lowercase letter.');
+}
+if (!preg_match('/[A-Z]/', $password)) {
+    die('Password must contain at least one uppercase letter.');
+}
+if (!preg_match('/[0-9]/', $password)) {
+    die('Password must contain at least one number.');
+}
+if (!preg_match('/[a-zA-Z0-9]/', $password)) {
+    die('Password must be alphanumeric.');
+}
+````
+````
+// Check if username already exists
+$sql = "SELECT * FROM users WHERE username='$username'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    die('Username already exists.');
+}
+````
 
 ### <a name="authe"/> 2. Authentication
 
