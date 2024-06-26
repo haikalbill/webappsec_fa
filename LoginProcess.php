@@ -1,6 +1,7 @@
 <?php
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://ajax.googleapis.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
 session_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self' https://ajax.googleapis.com");
+
 // Database credentials
 $servername = "localhost";
 $username = "root";
@@ -26,36 +27,53 @@ $username = $conn->real_escape_string($username);
 $sql = "SELECT * FROM users WHERE username='$username'";
 $result = $conn->query($sql);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $admin_username = "Admin123"; // change this to your admin username
-    $admin_password = "Admin123"; // change this to your admin password
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    if ($username === $admin_username && $password === $admin_password) {
-        $_SESSION['admin_loggedin'] = true;
-        header("Location: admin.php");
-        exit;
-    } else {
-        $error = "Invalid username or password";
-    }
-}
-
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
+
+    // Check if the account is locked
+    $lockout_duration = 15 * 60; // 15 minutes in seconds
+    $current_time = time();
+    $last_failed_attempt = strtotime($row['last_failed_attempt']);
+    $failed_attempts = $row['failed_attempts'];
+
+    if ($failed_attempts >= 5 && ($current_time - $last_failed_attempt) < $lockout_duration) {
+        echo "<script>alert('Account is locked. Please try again after 15 minutes.'); window.location.href='login.php';</script>";
+        exit;
+    } elseif (($current_time - $last_failed_attempt) >= $lockout_duration) {
+        // Reset failed attempts after lockout duration
+        $failed_attempts = 0;
+        $sql = "UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username='$username'";
+        $conn->query($sql);
+    }
+
     if (password_verify($password, $row['password'])) {
+        // Reset failed attempts on successful login
+        $sql = "UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username='$username'";
+        $conn->query($sql);
+
         // Regenerate session ID to prevent session fixation
         session_regenerate_id(true);
         
-        // Set session variable
+        // Set session variables
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
-        
-        // Redirect to Index.php
-        header("Location: Index.php");
-        exit;
+
+        // Check if the user is Admin321
+        if ($username === 'Admin123') {
+            $_SESSION['admin_loggedin'] = true;
+            header("Location: admin.php");
+            exit;
+        } else {
+            // Redirect to Index.php for regular users
+            header("Location: Index.php");
+            exit;
+        }
     } else {
+        // Update failed attempts count and timestamp
+        $failed_attempts++;
+        $sql = "UPDATE users SET failed_attempts = $failed_attempts, last_failed_attempt = NOW() WHERE username='$username'";
+        $conn->query($sql);
+
         echo "<script>alert('Incorrect password.'); window.location.href='login.php';</script>";
     }
 } else {
@@ -64,7 +82,6 @@ if ($result->num_rows == 1) {
 
 $conn->close();
 ?>
-
 
 <?php
 // Check if user is inactive for 30 minutes or session is older than 1 hour
@@ -87,4 +104,5 @@ if (isset($_SESSION['created']) && (time() - $_SESSION['created'] > $session_lif
 
 $_SESSION['last_activity'] = time(); // Update last activity time stamp
 ?>
+
 
