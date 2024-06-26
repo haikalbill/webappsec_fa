@@ -426,4 +426,9 @@ CSRF Token Generation: The code generates a CSRF token using bin2hex(random_byte
 
 #### References:
 1. Class Slides
+2. www.w3schools.com
+3. www.tutorialspoint.com
+4. https://stackoverflow.com/
+5. www.php.net
+6. www.simplilearn.com
 
