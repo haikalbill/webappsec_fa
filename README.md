@@ -181,30 +181,25 @@ if ($result->num_rows > 0) {
             alert('Username can only contain letters and numbers.');
             return false;
           }
-
           if (password.length < 8) {
             alert('Password must be at least 8 characters long.');
             return false;
           }
-
           var uppercaseRegex = /[A-Z]/;
           if (!uppercaseRegex.test(password)) {
             alert('Password must contain at least one uppercase letter.');
             return false;
           }
-
           var lowercaseRegex = /[a-z]/;
           if (!lowercaseRegex.test(password)) {
             alert('Password must contain at least one lowercase letter.');
             return false;
           }
-
           var numberRegex = /[0-9]/;
           if (!numberRegex.test(password)) {
             alert('Password must contain at least one number.');
             return false;
           }
-
           var alphanumericRegex = /[a-zA-Z0-9]/;
           if (!alphanumericRegex.test(password)) {
             alert('Password must be alphanumeric.');
