@@ -26,7 +26,6 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self' https://a
   </head>
   <body ononline="onFunction()" onoffline="offFunction()">
     <?php
-      session_start();
       $token = bin2hex(random_bytes(32));
       $_SESSION['csrf_token'] = $token;
 
