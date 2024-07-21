@@ -43,7 +43,7 @@ The objectives of this Web Application Security group project is to enhance the 
 
 ## <a name="web"/>Web Application Security Enhancements:
 
-### <a name="inp"/> 1.Input Validation (Raeidi)
+### <a name="inp"/> 1.Input Validation (Haikal & Raeidi)
 1. For login.php and LoginProcess.php
   - Username Validation:
     - The username field is validated to only allow alphanumeric characters (letters and numbers) using the regex /^[a-zA-Z0-9]+$/.
